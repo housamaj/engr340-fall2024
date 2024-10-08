@@ -1,7 +1,6 @@
 import numpy as np
 from scipy.stats import ttest_1samp, norm, ttest_ind
 
-
 def write_to_csv(filename: str, data):
     """
     Write an array of data to a file
@@ -34,7 +33,19 @@ def one_sided_tests(_files: list, _mean: float, _alpha: float, _less_than: bool)
     # list of files that are out of spec
     reject_null_hypothesis = []
 
-    # YOUR CODE HERE #
+    for file in _files: # for loop used to iterate files in a list
+        if _less_than == True: # if else statement that sets the operator condition to less or greater
+            operator_condition = 'less'
+        else:
+            operator_condition = 'greater'
+
+        data_array = np.genfromtxt(file, delimiter=',') # general code for converting a csv file to an array
+        (stat, p_value) = ttest_1samp(data_array, popmean=_mean, alternative=operator_condition)
+
+        if p_value < _alpha:
+            reject_null_hypothesis.append(file)
+        else:
+            continue
 
     # return samples that were rejected
     return reject_null_hypothesis

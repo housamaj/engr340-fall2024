@@ -11,10 +11,10 @@ def first_question(data):
     # When was the first positive COVID case in Harrisonburg?
     :return
     """
-    rockingham_data = data[data['fips'] == 51165.0]
+    rockingham_data = data[(data['fips'] == 51165.0) & (data['cases'] > 0)]
     first_rockingham_case = rockingham_data.iloc[0, 0] # modify to include first positive covid case
 
-    harrisonburg_data = data[data['county'] == 'Harrisonburg city']
+    harrisonburg_data = data[(data['county'] == 'Harrisonburg city') & (data['cases'] > 0)]
     first_harrisonburg_case = harrisonburg_data.iloc[0,0]
 
 
@@ -27,8 +27,8 @@ def second_question(data):
     # What day was the greatest number of new daily cases recorded in Rockingham County?
     :return:
     """
+    rockingham_data = data[(data['fips'] == 51165.0)]
 
-    # your code here
     return
 
 def third_question(data):
