@@ -1,4 +1,3 @@
-
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -6,8 +5,7 @@ import numpy as np
 path = '../../../data/ekg/mitdb_201.csv'
 
 # load data in matrix from CSV file; skip first two rows
-
-### Your code here ###
+data = np.loadtxt(path)
 
 # save each vector as own variable
 
