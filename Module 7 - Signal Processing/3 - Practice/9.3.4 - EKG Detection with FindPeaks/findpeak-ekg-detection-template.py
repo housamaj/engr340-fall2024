@@ -30,8 +30,11 @@ signal = signal[0:3300]
 Step 3: Use Find Peaks
 """
 
+minimum_height = 2
+timeout = 180
+
 # you may want to explore various parameters for the function that will help you!
-peaks, _ = find_peaks(signal)
+peaks, _ = find_peaks(signal, height= minimum_height, distance= timeout)
 print("Within the sample we found ", len(peaks), " heart beats with find_peaks!")
 
 """

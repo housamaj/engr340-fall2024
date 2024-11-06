@@ -32,30 +32,33 @@ Adjust the values for threshold and timeout to change the detection method/appro
 """
 
 # set a detection threshold (YOUR VALUE BELOW)
-detection_threshold = -1
+detection_threshold = 2
 
 # set a heart beat time out (YOUR VALUE BELOW)
-detection_time_out = -1
-
-# track the last time we found a beat
-last_detected_index = -1
-
-# keep not of where we are in the data
-current_index = 0
+detection_time_out = 200
 
 # store indices of all found beats
 beats_detected = list()
+
+# make a timeout counter to store when we need to time out
+timeout_counter = 0
 
 """
 Step 4: Manually iterate through the signal and apply the threshold with timeout
 """
 
 # loop through signal finding beats
-for value in signal:
+for i in range(1,len(signal)-1):
+    # Need a timeout function
+    if timeout_counter > 0:
+        timeout_counter -= 1
+        continue
     ## Use a conditional statement to see if the signal is above a threshold...
-
-    ## Once an index is found, place the index in the beats_detected list
-    current_index += 1
+    if signal[i] > detection_threshold and signal[i] > signal[i-1] and signal[i] > signal[i+1]:
+        beats_detected.append(i)
+        timeout_counter = detection_time_out
+    else:
+        continue
 
 print("Within the sample we found ", len(beats_detected), " heart beats with manual search!")
 
